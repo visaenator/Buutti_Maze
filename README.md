@@ -15,3 +15,6 @@ Improvement ideas
 3. Passing arguments
 - What do we really need? Most of the data could be derived from the maze map, so should we just always check from that or check once and pass it around
 - Check all values for example in case of const
+4. Error handling
+- There is always room for more error handling
+- More time testing and iterating

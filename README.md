@@ -20,4 +20,4 @@ Improvement ideas
 - More time testing and iterating
 5. Formatting
 - Would probably create more files and headers, maybe
-- There might be some room for more functions and clearing the code in whole 
+- There might be some room for more functions and making the code more clear

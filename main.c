@@ -123,38 +123,40 @@ int main(){
         printf("Couldn't finish with %d steps...\n", step_difficulties[i]);
     }
 
-    char optimization = 'N';
-    printf("Do you want to try optimization (Y/N)? WARNING! It might take a looooong time: ");
-    while((optimization = getchar()) == '\n' || optimization == EOF) {}
+    if(result == 1){
+        char optimization = 'N';
+        printf("Do you want to try optimization (Y/N)? WARNING! It might take a looooong time: ");
+        while((optimization = getchar()) == '\n' || optimization == EOF) {}
 
-    if(optimization == 'Y' || optimization == 'y'){
-        char** best_so_far = (char**)malloc(max_y * sizeof(char*));
-        for(int i = 0; i < max_y; ++i){
-            best_so_far[i] = (char*)malloc(max_x * sizeof(char));
-        }
-
-        while(true){
-            //Have to empty the old solution for the optimization
+        if(optimization == 'Y' || optimization == 'y'){
+            char** best_so_far = (char**)malloc(max_y * sizeof(char*));
             for(int i = 0; i < max_y; ++i){
-                for(int j = 0; j < max_x; ++j){
-                    best_so_far[i][j] = maze[i][j];
-                    if(maze[i][j] == 'o'){
-                        maze[i][j] = ' ';
+                best_so_far[i] = (char*)malloc(max_x * sizeof(char));
+            }
+
+            while(true){
+                //Have to empty the old solution for the optimization
+                for(int i = 0; i < max_y; ++i){
+                    for(int j = 0; j < max_x; ++j){
+                        best_so_far[i][j] = maze[i][j];
+                        if(maze[i][j] == 'o'){
+                            maze[i][j] = ' ';
+                        }
                     }
                 }
+                --steps_taken;
+                int new_try = steps_taken;
+                printf("Optimizing...\n");
+                result = go_through_maze(maze, start, max_x, max_y, &new_try, exits_coords, exits);
+                if(result != 1){
+                    printf("Found solution with %d steps\n", steps_taken+1);
+                    break;
+                }
             }
-            --steps_taken;
-            int new_try = steps_taken;
-            printf("Optimizing...\n");
-            result = go_through_maze(maze, start, max_x, max_y, &new_try, exits_coords, exits);
-            if(result != 1){
-                printf("Found solution with %d steps\n", steps_taken+1);
-                break;
-            }
-        }
 
-        print_maze(best_so_far, max_x, max_y, start);
-        free(best_so_far);
+            print_maze(best_so_far, max_x, max_y, start);
+            free(best_so_far);
+        }
     }
     
     free_maze_memory(maze, max_y, exits_coords);

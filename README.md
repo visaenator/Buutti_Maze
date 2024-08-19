@@ -18,3 +18,6 @@ Improvement ideas
 4. Error handling
 - There is always room for more error handling
 - More time testing and iterating
+5. Formatting
+- Would probably create more files and headers, maybe
+- There might be some room for more functions and clearing the code in whole 
